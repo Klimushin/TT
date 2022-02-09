@@ -1,6 +1,12 @@
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+
 from datetime import datetime
 
-from app import db
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///testtask.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
 
 
 class Expense(db.Model):
@@ -25,6 +31,3 @@ class ExpenseType(db.Model):
 
     def __repr__(self):
         return self.name
-
-
-db.create_all()
