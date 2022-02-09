@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}
+Report
+{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1> Total: </h1>
+    <h1>{{ total_expenses|round(2) }}</h1><br>
+    <h3> Choose report date </h3>
+    <form method="post">
+        <h5>
+            <label for="name">Input start date:</label>
+           <input type="date" name="start_date" class="dateinput form-control" required="" id="istart_date"><br>
+            <label for="name">Input end date:</label>
+           <input type="date" name="end_date" class="dateinput form-control" required="" id="end_date"><br>
+            <h5>
+                <input type="submit" class="btn btn-success" value="Submit">
+    </form>
+
+
+</div>
+{% endblock %}
+
+
+
+
+
+
+<input type="date" name="start_date" class="dateinput form-control" required="" id="id_start_date">

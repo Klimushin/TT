@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}
+Expense type detail
+{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1> Expense type detail </h1>
+    <div class="alert alert-info">
+        <h5>Expense type name : {{ expense_type.name }}</h5>
+        <h5>Is active : {{ expense_type.is_active }}</h5>
+        <h5>Total sum  {{ total_sum|round(2) }}  </h5>
+        <a href="/expense-type/{{ expense_type.id }}/delete" class="btn btn-danger">Delete</a>
+        <a href="/expense-type/{{ expense_type.id }}/update" class="btn btn-success">Edit</a>
+    </div>
+</div>
+{% endblock %}

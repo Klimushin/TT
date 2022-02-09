@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}
+All expense types
+{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1> All expense types </h1>
+    {% for el in expense_type %}
+    <div class="alert alert-info">
+        <h5>{{ el.name }}  -   {{ el.is_active }} </h5>
+    <a href="/expense-type/{{ el.id }}" class="btn btn-warning">Detail</a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

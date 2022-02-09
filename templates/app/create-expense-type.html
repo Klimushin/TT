@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}
+Create expense type
+{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1> Add expense type</h1>
+    <form method="post">
+        <h5>
+            <label for="name">Input expense type:</label>
+            <input type="text" name="name" id="name" class="form-control"><br>
+            <h5>
+                <input type="submit" class="btn btn-success" value="Submit">
+    </form>
+</div>
+{% endblock %}

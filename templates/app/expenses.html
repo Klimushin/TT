@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}
+All expenses
+{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h3> All expenses </h3>
+    <h5> Total sum = {{ total_sum|round(2) }}</h5>
+    {% for el in expenses %}
+    <div class="alert alert-info">
+        <h5>Expense name : {{ el.name }}</h5>
+        <h5>Expense date : {{ el.date.strftime('%Y-%m-%d   %H:%M') }}</h5>
+        <h5>Expense sum : {{ el.expense_sum|round(2) }}</h5>
+        <h5>Expense notes : {{ el.notes }}</h5>
+        <h5>Expense type : {{ el.expense }}</h5>
+        <a href="/expense/{{ el.id }}" class="btn btn-warning">Detail</a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

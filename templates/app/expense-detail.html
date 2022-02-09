@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}
+Expense detail
+{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1> Expense detail </h1>
+    <div class="alert alert-info">
+        <h5>Expense name : {{ expense.name }}</h5>
+        <h5>Expense date : {{ expense.date.strftime('%Y-%m-%d   %H:%M') }}</h5>
+        <h5>Expense sum : {{ expense.expense_sum|round(2) }}</h5>
+        <h5>Expense notes : {{ expense.notes }}</h5>
+        <h5>Expense type : {{ expense.expense }}</h5>
+        <a href="/expense/{{ expense.id }}/delete" class="btn btn-danger">Delete</a>
+        <a href="/expense/{{ expense.id }}/update" class="btn btn-success">Edit</a>
+    </div>
+</div>
+{% endblock %}
