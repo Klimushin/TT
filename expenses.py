@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 
 from flask import render_template, request, redirect, Blueprint
 
-from database import ExpenseType, Expense, db
+from models import ExpenseType, Expense, db
 
 exp = Blueprint('exp', __name__)
 
