@@ -1,12 +1,15 @@
 from datetime import datetime, timedelta
 
-from flask import render_template, request, redirect
+from flask import render_template, request, redirect, Blueprint
 
-from app import app, db
+from app import db
 from database import ExpenseType, Expense
 
 
-@app.route('/create-expense-type', methods=['POST', 'GET'])
+exp = Blueprint('exp', __name__)
+
+
+@exp.route('/create-expense-type', methods=['POST', 'GET'])
 def create_expense_type():
     if request.method == 'POST':
         name = request.form['name']
@@ -28,13 +31,13 @@ def create_expense_type():
         return render_template('app/create-expense-type.html')
 
 
-@app.route('/expense-types')
+@exp.route('/expense-types')
 def expense_type():
     expense_types = ExpenseType.query.all()
     return render_template('app/expense-types.html', expense_type=expense_types)
 
 
-@app.route('/expense-type/<int:id>')
+@exp.route('/expense-type/<int:id>')
 def expense_type_detail(id):
     expense_type = ExpenseType.query.get(id)
     expenses = Expense.query.filter(Expense.expense_type_id == id).all()
@@ -44,7 +47,7 @@ def expense_type_detail(id):
     return render_template('app/expense-type-detail.html', expense_type=expense_type, total_sum=total_sum)
 
 
-@app.route('/expense-type/<int:id>/update', methods=['POST', 'GET'])
+@exp.route('/expense-type/<int:id>/update', methods=['POST', 'GET'])
 def expense_type_update(id):
     expense_type = ExpenseType.query.get(id)
     if Expense.query.filter(Expense.expense_type_id == id).first() is None:
@@ -73,7 +76,7 @@ def expense_type_update(id):
         return render_template('app/error.html', data=data)
 
 
-@app.route('/expense-type/<int:id>/delete')
+@exp.route('/expense-type/<int:id>/delete')
 def expense_type_delete(id):
     expense_type = ExpenseType.query.get_or_404(id)
     if Expense.query.filter(Expense.expense_type_id == id).first() is None:
@@ -89,7 +92,7 @@ def expense_type_delete(id):
         return render_template('app/error.html', data=data)
 
 
-@app.route('/create-expense', methods=['POST', 'GET'])
+@exp.route('/create-expense', methods=['POST', 'GET'])
 def create_expense():
     if request.method == 'POST':
         name = request.form['name']
@@ -109,7 +112,7 @@ def create_expense():
         return render_template('app/create-expenses.html', types=types)
 
 
-@app.route('/')
+@exp.route('/')
 def expense():
     expenses = Expense.query.order_by(Expense.date.desc()).all()
     total_sum = 0
@@ -118,13 +121,13 @@ def expense():
     return render_template('app/expenses.html', expenses=expenses, total_sum=total_sum)
 
 
-@app.route('/expense/<int:id>')
+@exp.route('/expense/<int:id>')
 def expense_detail(id):
     expense = Expense.query.get(id)
     return render_template('app/expense-detail.html', expense=expense)
 
 
-@app.route('/expense/<int:id>/update', methods=['POST', 'GET'])
+@exp.route('/expense/<int:id>/update', methods=['POST', 'GET'])
 def expense_update(id):
     expense = Expense.query.get(id)
     if request.method == 'POST':
@@ -143,7 +146,7 @@ def expense_update(id):
         return render_template('app/expenses-update.html', expense=expense, expense_types=expense_types)
 
 
-@app.route('/expense/<int:id>/delete')
+@exp.route('/expense/<int:id>/delete')
 def expense_delete(id):
     expense = Expense.query.get_or_404(id)
     try:
@@ -155,7 +158,7 @@ def expense_delete(id):
         return render_template('app/error.html', data=data)
 
 
-@app.route('/report', methods=['POST', 'GET'])
+@exp.route('/report', methods=['POST', 'GET'])
 def report():
     if request.method == 'POST':
         start_date = request.form['start_date']
